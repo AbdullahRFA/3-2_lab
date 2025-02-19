@@ -8,7 +8,7 @@ class Courses(models.Model):
     thumbnail = models.ImageField(upload_to='course_thumbnail/',null=True,blank=True)
     
     def __str__(self):
-        return self.title + ' ( ' + self.duration+ ' ) '
+        return self.title + ' ( ' + str(self.duration)+ ' ) '
     
     
 class Lesson(models.Model):
