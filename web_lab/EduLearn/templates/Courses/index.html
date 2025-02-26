@@ -1,18 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home page</title>
-</head>
-<body>
-    <h1>Courses</h1>
-    <ul>
-        <li>CSE</li>
-        <li>IIT</li>
-        <li>Physics</li>
-        <li>Chemistry</li>
-        <li>Mathematics</li>
-    </ul>
-</body>
+  </head>
+  <style>
+    table, th, td {
+      border:1px solid black;
+    }
+    th, td{
+        text-align: center;
+    }
+    </style>
+  <body>
+    <h1>List of all Courses</h1>
+
+    <table style="width:100%">
+        <tr>
+            <th>ID</th>
+            <th>Course Title</th>
+            <th>Description</th>
+            <th>Course duration</th>
+            <th>Course Plan</th>
+        </tr>
+        {% for course in courses %}
+        <tr>
+            <td>{{course.id}}</td>
+            <td>{{course.title}}</td>
+            <td>{{course.description}}</td>
+            <td>{{course.duration}}</td>
+            <td><a href="{{course.id}}">{{course.id}}/Course Details</a></td>
+        </tr>
+        {% endfor %}
+       
+      </table>
+  </body>
 </html>

@@ -3,35 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descriptions</title>
+    <title>Course Details - {{ courses.title }}</title>
 </head>
+<style>
+    a{
+        text-decoration: none;
+        font-size: 32px;
+        background-color: aquamarine;
+        padding: 10px;
+        border-radius: 10px;
+        
+    }
+    a:hover{
+        background-color: magenta;
+    }
+   div{
+   
+    text-align: center;
+    margin-top: 20px;
+   
+   }
+   table, th, td {
+    border:1px solid black;
+  }
+  th, td{
+      text-align: center;
+  }
+</style>
 <body>
-    <h1>This is descriptions page</h1>
-    
-    <ul>
-        <h2>CSE (Computer Science and Engineering)</h2>
-        <li>
-            This course focuses on the study of computer systems, programming languages, algorithms, software development, and the application of computing technology to solve real-world problems. Students gain a strong foundation in both theoretical and practical aspects of computing, preparing them for careers in software development, system administration, data science, and more.
-        </li>
-        <h2>IIT (Information Technology)</h2>
-        <li>
-            The Information Technology course is designed to provide students with in-depth knowledge of computing technologies, network administration, database management, cybersecurity, and software engineering. It emphasizes the practical application of IT to enhance business operations, making graduates skilled in managing and implementing IT systems.
-        </li>
-        <h2>Physics</h2>
-        <li>
-            The Physics course explores the fundamental laws of nature, including mechanics, electromagnetism, thermodynamics, quantum mechanics, and relativity. It develops critical thinking, problem-solving, and analytical skills, preparing students for careers in research, engineering, astronomy, and various technology-related fields.
-        </li>
-        <h2>Chemistry</h2>
-        <li>
-            The Chemistry course delves into the properties, reactions, and composition of matter. It covers organic, inorganic, and physical chemistry, with a focus on understanding chemical processes and their applications in industries like pharmaceuticals, biotechnology, and environmental science.
-        </li>
-        <h2>Mathematics</h2>
-        <li>
-            The Mathematics course provides students with a deep understanding of mathematical concepts such as calculus, linear algebra, probability, and differential equations. It fosters analytical and problem-solving skills, equipping students for careers in finance, data analysis, research, and teaching, among other fields.
-        </li>
+    <h1>Course Title: {{ courses.title }}</h1>
+    {% comment %} <img src="{{ courses.thumbnail.url }}" alt="{{ courses.title }}" style="max-width: 300px; height: auto;"> {% endcomment %}
+    <p><strong>Duration:</strong> {{ courses.duration }} hours</p>
+    <p><strong>Description:</strong> {{ courses.description }}</p>
 
-    </ul>
-    
-    
+    <h2>Lessons</h2>
+    <!-- <ul>
+        {% for lesson in lessons %}
+            <li>
+                <h3>{{ lesson.title }}</h3>
+                <p>{{ lesson.content }}</p>
+            </li>
+        {% empty %}
+            <li>No lessons available for this course.</li>
+        {% endfor %}
+    </ul> -->
+
+    <table style="width:100%">
+        <tr>
+            <th>Ttile</th>
+            <th>Content</th>
+        </tr>
+        {% for lesson in lessons %}
+        <tr>
+            <td>{{ lesson.title }}</td>
+            <td>{{ lesson.content }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+        
+    <div >
+        <a href="{% url 'home' %}">Back to Home Page</a>
+    </div>
 </body>
 </html>

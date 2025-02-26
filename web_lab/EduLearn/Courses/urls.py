@@ -4,7 +4,9 @@ from Courses import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('home/',views.home,name='home'),
+    path('',views.home,name='home'),
+    path('<int:courseID>/', views.Course_details, name='coursedetails'),
     path('description/',views.descriptions,name='description'),
     
 ]
+
