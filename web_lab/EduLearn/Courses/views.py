@@ -15,3 +15,10 @@ def Course_details(request, courseID):
     courses = get_object_or_404(Courses, id=courseID)
     lessons = courses.lessons.all()  # Correct way to access related lessons
     return render(request, 'Courses/description.html', {'lessons': lessons, 'courses': courses})
+
+def course_update(request,id):
+    return HttpResponse("This is course update")
+def course_delete(request,id):
+    return HttpResponse("This is course_delete")
+def lesson_create(request):
+    return HttpResponse("This is lesson_create")
