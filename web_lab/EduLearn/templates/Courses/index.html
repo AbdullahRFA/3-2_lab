@@ -1,8 +1,15 @@
 {% extends "Courses/base.html" %}
 
+{% block title %}
+List of all Courses
+{% endblock title %}
+    
+
 {% block content %}
 <div class="container">
   <h1 class="text-center my-5 py-3 bg-success">List of all Courses</h1>
+
+  <a href="{% url 'create_course' %}" class='btn btn-primary mb-3 p-2 fw-bold'>Create New Course</a>
 
   <table class="table table-striped ">
       <tr class="table-dark">
@@ -11,7 +18,7 @@
           <th>Description</th>
           <th>Course duration</th>
           <th>Thumbnail</th>
-          <th>Course Plan</th>
+          {% comment %} <th>Course Plan</th> {% endcomment %}
           <th>Actions</th>
           <th>Manages</th>
       </tr>
@@ -21,7 +28,13 @@
           <td>{{course.title}}</td>
           <td>{{course.description|truncatewords:10 }}</td>
           <td>{{course.duration}}</td>
-          <td><img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" width="100"></td>
+          <td>
+            {% if course.thumbnail %}
+                <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}" width="100">
+            {% else %}
+                <span class="text-muted">No Image</span>
+            {% endif %}
+        </td>
           {% comment %} <td><a href="{{course.id}}">{{course.id}}/Course Details</a></td> {% endcomment %}
           <td>
             <!-- Edit Button -->
@@ -30,9 +43,9 @@
             </a>
 
             <!-- Delete Button (Form to handle deletion securely) -->
-            <form action="{% url 'course_delete' course.id %}" method="POST" class="d-inline">
+            <form action="{% url 'course_delete' course.id %}"  class="d-inline">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">
+                <button type="submit" class="btn btn-danger btn-sm" >
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
             </form>

@@ -1,4 +1,7 @@
 {% extends "Courses/base.html" %}
+{% block title %}
+Course Details
+{% endblock title %}
 
 {% block content %}
 <div class="container">
@@ -14,16 +17,32 @@
 <p><strong>Description:</strong> {{ courses.description }}</p>
 
 <h2>Lessons</h2>
+<a href="{% url 'lesson_create' %}" class="btn btn-primary">Add Lesson</a><br>
 
 <table class="table table-striped">
   <tr class="table-dark">
     <th>Ttile</th>
     <th>Content</th>
+    <th>Action</th>
   </tr>
   {% for lesson in lessons %}
   <tr>
     <td>{{ lesson.title }}</td>
     <td>{{ lesson.content }}</td>
+    <td>
+      <!-- Edit Button -->
+      <a href="{% url 'lesson_update' lesson.id %}" class="btn btn-warning btn-sm">
+          <i class="fas fa-edit"></i> Edit
+      </a>
+
+      <!-- Delete Button (Form to handle deletion securely) -->
+      <form action="{% url 'lesson_delete' lesson.id %}"  class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm" >
+              <i class="fas fa-trash-alt"></i> Delete
+          </button>
+      </form>
+  </td>
   </tr>
   {% empty %}
   <strong style="color: red">No lessons available for this course.</strong
@@ -32,7 +51,7 @@
 </table>
 
 <div class="d-flex justify-content-center">
-  <a href="{% url 'home' %}" class="btn btn-primary">Back to Home Page</a>
+  <a href="{% url 'course_list' %}" class="btn btn-primary">Back to Home Page</a>
 </div>
 </div>
   
