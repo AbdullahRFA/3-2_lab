@@ -1,0 +1,20 @@
+{% extends "Courses/base.html" %}
+{% block title %} Enrollment Successful {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="alert alert-success text-center">
+        <h2>Enrollment Successful</h2>
+        <p class="text-danger">
+            
+            {% if student.name %}
+                {{ student.name }}
+            {% elif student.email %}
+                {{ student.email }}
+            {% endif %}
+            has been enrolled in <strong>{{ course.title }}</strong>.
+        </p>
+        <a href="{% url 'student_list' %}" class="btn btn-primary">Back to Student List</a>
+    </div>
+</div>
+{% endblock %}

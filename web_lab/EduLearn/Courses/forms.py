@@ -1,5 +1,5 @@
 from django import forms
-from .models import Courses,Lesson
+from .models import Courses,Lesson, Student
 
 class courseForm(forms.ModelForm):
     class Meta:
@@ -20,4 +20,16 @@ class LessonForm(forms.ModelForm):
         'course': forms.Select(attrs={'class': 'form-control'}),
         'title': forms.TextInput(attrs={'class': 'form-control'}),
         'content': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+        
+        
+        
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['name', 'email', 'enrolled_courses']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),  # ✅ Fixed typo
+            'enrolled_courses': forms.CheckboxSelectMultiple(),  # ✅ Fixed ManyToManyField issue
         }

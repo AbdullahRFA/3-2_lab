@@ -19,7 +19,7 @@ class Lesson(models.Model):
     def __str__(self):
         return self.title
     
-    
+
 class Student(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)

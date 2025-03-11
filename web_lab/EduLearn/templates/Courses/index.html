@@ -9,7 +9,11 @@ List of all Courses
 <div class="container">
   <h1 class="text-center my-5 py-3 bg-success">List of all Courses</h1>
 
-  <a href="{% url 'create_course' %}" class='btn btn-primary mb-3 p-2 fw-bold'>Create New Course</a>
+  <div class="d-flex justify-content-between">
+      <a href="{% url 'create_course' %}" class='btn btn-primary mb-3 p-2 fw-bold'>Create New Course</a>
+      <a href="{% url 'enroll_student' %}" class='btn btn-primary mb-3 p-2 fw-bold'>Enroll Student</a>
+
+  </div>
 
   <table class="table table-striped ">
       <tr class="table-dark">

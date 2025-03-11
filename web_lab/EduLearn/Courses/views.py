@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect,HttpResponse
 from .models import Lesson,Courses,Student
 from django.contrib.auth.decorators import login_required
-from .forms import courseForm, LessonForm
+from .forms import courseForm, LessonForm, StudentForm
 from django.contrib import messages
 
 # Create your views here.
@@ -81,3 +81,45 @@ def lesson_delete(request,id):
         messages.warning(request,"Lesson successfully deleted")
         return redirect('course_list')
     return render(request,'Courses/lesson_confirm_delete.html')
+
+def enroll_student(request):
+    form = StudentForm()
+    if request.method == "POST":
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            student = form.save()
+            messages.success(request, "Student Enrolled Successfully!")
+
+            # Get the first course the student enrolled in
+            course = student.enrolled_courses.first()
+            context = {
+                'student': student,
+                'course': course
+            }
+
+            return render(request, "Courses/enrollment_success_page.html", context)
+    
+    return render(request, "Courses/enrollment_form.html", {'form': form})
+
+def student_list(request):
+    students = Student.objects.all()
+    return render(request,'Courses/student_list.html',{"students":students})
+
+def student_update(request,id):
+    student = get_object_or_404(Student,id=id)
+    form = StudentForm(instance=student)
+    if request.method == "POST":
+        form = StudentForm(request.POST,request.FILES,instance=student)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Student update successful")
+            return redirect('student_list')
+    return render(request,"Courses/enrollment_form.html", {'form': form,'check':1})
+
+def student_delete(request,id):
+    student = get_object_or_404(Student,id=id)
+    if request.method == "POST":
+        student.delete()
+        messages.warning(request,"Student deleted sucessfully")
+        return redirect('student_list')
+    return render(request,"Courses/student_confirm_delete.html",{'student':student})

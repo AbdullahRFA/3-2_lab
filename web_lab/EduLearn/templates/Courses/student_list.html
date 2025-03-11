@@ -1,0 +1,58 @@
+{% extends "Courses/base.html" %}
+
+{% block title %}
+List of all Courses
+{% endblock title %}
+    
+
+{% block content %}
+<div class="container">
+  <h1 class="text-center my-5 py-3 bg-success">List of all Student</h1>
+
+<a href="{% url 'enroll_student' %}" class='btn btn-primary mb-3 p-2 fw-bold'>Enroll Student</a>
+
+  <table class="table table-striped ">
+      <tr class="table-dark">
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Enrolled Courses</th>
+          <th>Actions</th>
+         
+      </tr>
+      {% for student in students %}
+      <tr>
+          <td>{{student.id}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.email}}</td>
+          
+          <td>
+            <ol type='1'>
+                
+                {% for course in student.enrolled_courses.all %}
+                <li>{{course.title}}</li>
+                {% endfor %}
+            </ol>
+        </td>
+        <td>
+            <!-- Edit Button -->
+            <a href="{% url 'student_update' student.id %}" class="btn btn-warning btn-sm my-1">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+
+            <!-- Delete Button (Form to handle deletion securely) -->
+            <form action="{% url 'student_delete' student.id %}"  class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm" >
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </form>
+        </td>
+      {% endfor %}
+     
+    </table>
+</div>
+
+  
+{% endblock content %}
+  

@@ -1,0 +1,33 @@
+{% extends "Courses/base.html" %}
+{% block title %}{{ course.id|default:"Create" }} Enrollment Form{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+<h2>{{ course.id|default:"" }} 
+    {% if check == 1 %}
+        Update Student
+    {% else %} 
+    Enroll New Student
+    {% endif %}
+
+</h2>
+
+<form method="post" enctype="multipart/form-data" class="p-4 border rounded bg-white shadow-sm">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit" class="btn btn-success">
+    
+    {% if check == 1 %}
+        Update Student
+    {% else %} 
+    Enroll Student
+    {% endif %}
+</button>
+</form>
+<div class="d-flex justify-content-center">
+    <a href="{% url 'student_list' %}" class="btn btn-primary mt-3">Back to Student list</a>
+
+</div>
+</div>
+{% endblock %}
