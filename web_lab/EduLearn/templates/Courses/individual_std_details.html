@@ -1,0 +1,40 @@
+{% extends "Courses/base.html" %}
+
+{% block title %}
+Individual Student Information
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-5 py-3 bg-success">Individual Student Information</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Enrolled Courses</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>
+                    <ol>
+                        
+                        {% for course in student.enrolled_courses.all %}
+                        <li><a href="{% url 'individual_course_details' course.id %}">{{course.title}}</a></li>
+                            
+                        {% endfor %}
+                            
+                    </ol>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{% url 'course_list' %}" class="btn btn-primary">Back to Home</a>
+</div>
+{% endblock content %}

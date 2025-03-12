@@ -1,0 +1,45 @@
+{% extends "Courses/base.html" %}
+
+{% block title %}
+Course Enrolled Students
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-5 py-3 bg-success">Course Enrolled Students</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Title</th>
+                <th>Enrolled Students</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.id }}</td>
+                <td>{{ course.title }}</td>
+                <td>
+                    {% if course.students.all %}
+                        <ol>
+                            {% for student in course.students.all %}
+                                <li><a href="{% url 'individual_std_details' student.id %}">{{ student.name }}</a></li>
+                            {% endfor %}
+                        </ol>
+                    {% else %}
+                        <span class="text-muted">No students enrolled</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center text-danger">No courses found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'course_list' %}" class="btn btn-primary">Back to Hone</a>
+</div>
+{% endblock content %}

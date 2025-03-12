@@ -123,3 +123,16 @@ def student_delete(request,id):
         messages.warning(request,"Student deleted sucessfully")
         return redirect('student_list')
     return render(request,"Courses/student_confirm_delete.html",{'student':student})
+
+def course_enrolled_student(request):
+    courses = Courses.objects.prefetch_related('students').all()  # Fetch courses with enrolled students
+    return render(request, "Courses/course_enrolled_student.html", {'courses': courses})
+
+
+def individual_std_details(request, id):
+    student = get_object_or_404(Student, id=id)
+    return render(request, "Courses/individual_std_details.html", {'student': student})
+
+def individual_course_details(request, id):
+    course = get_object_or_404(Courses, id=id)
+    return render(request, "Courses/individual_course_details.html", {'course': course})
