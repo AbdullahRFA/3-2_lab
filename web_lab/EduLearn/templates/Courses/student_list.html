@@ -30,7 +30,7 @@ List of all Courses
             <ol type='1'>
                 
                 {% for course in student.enrolled_courses.all %}
-                <li>{{course.title}}</li>
+                <li><a href="{% url 'individual_course_details' course.id %}">{{course.title}}</a></li>
                 {% endfor %}
             </ol>
         </td>

@@ -124,9 +124,9 @@ def student_delete(request,id):
         return redirect('student_list')
     return render(request,"Courses/student_confirm_delete.html",{'student':student})
 
-# def course_enrolled_student(request,id):
-#     courses = Courses.objects.prefetch_related('students').get(id=id)  # Fetch courses with enrolled students
-#     return render(request, "Courses/course_enrolled_student.html", {'courses': courses})
+def course_enrolled_student_all(request):
+    courses = Courses.objects.prefetch_related('students').all()  # Fetch courses with enrolled students
+    return render(request, "Courses/course_enrolled_student_all.html", {'courses': courses})
 
 def course_enrolled_student(request, id):
     course = get_object_or_404(Courses, id=id)  # Get the specific course

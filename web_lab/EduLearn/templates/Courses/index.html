@@ -28,7 +28,7 @@ List of all Courses
       </tr>
       {% for course in courses %}
       <tr>
-          <td>{{course.id}}</td>
+          <td>{{forloop.counter}}</td>
           <td>{{course.title}}</td>
           <td>{{course.description|truncatewords:10 }}</td>
           <td>{{course.duration}}</td>
@@ -55,8 +55,8 @@ List of all Courses
             </form>
         </td>
         <td>
-            <a href="{% url 'lesson_create' %}" class="btn btn-info btn-sm">Add Lesson</a>
-            <a href="{{course.id}}" class="btn btn-secondary btn-sm">View
+            <a href="{% url 'lesson_create' %}" class="btn btn-info btn-sm mb-2">Add Lesson</a>
+            <a href="{{course.id}}" class="btn btn-secondary btn-sm mb-2">View
             Lessons</a>
             <a href="{% url 'course_enrolled_student' course.id %}" class="btn btn-success btn-sm">View
             Student</a>
