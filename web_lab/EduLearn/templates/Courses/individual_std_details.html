@@ -15,6 +15,7 @@ Individual Student Information
                 <th>Name</th>
                 <th>Email</th>
                 <th>Enrolled Courses</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,20 @@ Individual Student Information
                         {% endfor %}
                             
                     </ol>
+                </td>
+                <td>
+                    <!-- Edit Button -->
+                    <a href="{% url 'student_update' student.id %}" class="btn btn-warning btn-sm my-1">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+        
+                    <!-- Delete Button (Form to handle deletion securely) -->
+                    <form action="{% url 'student_delete' student.id %}"  class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" >
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
                 </td>
             </tr>
         </tbody>

@@ -1,45 +1,42 @@
 {% extends "Courses/base.html" %}
 
 {% block title %}
-Course Enrolled Students
+{{ course.title }} - Enrolled Students
 {% endblock title %}
 
 {% block content %}
 <div class="container">
-    <h1 class="text-center my-5 py-3 bg-success">Course Enrolled Students</h1>
+    <h1 class="text-center my-5 py-3 bg-success">{{ course.title }} - Enrolled Students</h1>
 
     <table class="table table-striped">
         <thead>
             <tr class="table-dark">
                 <th>ID</th>
-                <th>Title</th>
-                <th>Enrolled Students</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
-            {% for course in courses %}
+            {% for student in students %}
             <tr>
-                <td>{{ course.id }}</td>
-                <td>{{ course.title }}</td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
                 <td>
-                    {% if course.students.all %}
-                        <ol>
-                            {% for student in course.students.all %}
-                                <li><a href="{% url 'individual_std_details' student.id %}">{{ student.name }}</a></li>
-                            {% endfor %}
-                        </ol>
-                    {% else %}
-                        <span class="text-muted">No students enrolled</span>
-                    {% endif %}
+                    <a href="{% url 'individual_std_details' student.id %}" class="btn btn-info btn-sm">
+                        View Details
+                    </a>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="3" class="text-center text-danger">No courses found.</td>
+                <td colspan="4" class="text-center text-danger">No students enrolled in this course.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'course_list' %}" class="btn btn-primary">Back to Hone</a>
+
+    <a href="{% url 'course_list' %}" class="btn btn-primary">Back to Courses</a>
 </div>
 {% endblock content %}
