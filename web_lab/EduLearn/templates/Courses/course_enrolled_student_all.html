@@ -19,7 +19,7 @@ Course Enrolled Students
         <tbody>
             {% for course in courses %}
             <tr>
-                <td>{{ course.id }}</td>
+                <td>{{ forloop.counter }}</td>
                 <td>{{ course.title }}</td>
                 <td>
                     {% if course.students.all %}
